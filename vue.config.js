@@ -1,4 +1,12 @@
-const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true
-})
+module.exports = {
+  css: {
+    loaderOptions: {
+      // 给 sass-loader 传递选项
+      sass: {
+        // @/ 是 src/ 的别名
+        // 所以这里假设你有 `src/variables.scss` 这个文件
+        additionalData: `@import "~@/styles/variable.scss";`
+      }
+    }
+  }
+}
