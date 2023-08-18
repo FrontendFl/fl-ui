@@ -14,11 +14,9 @@
 </template>
 
 <script>
-import baseInput from '@/components/base/baseInput'
 import { option } from './module/const.js'
 
 export default {
-  components: { baseInput },
   props: {
     msg: String
   },

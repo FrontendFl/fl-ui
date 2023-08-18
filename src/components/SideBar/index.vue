@@ -12,15 +12,10 @@
 </template>
 
 <script>
-import SubMenu from './module/SubMenu.vue'
 import { routes } from '@/router'
 export default {
-  name: 'side-bar',
   props: {
 
-  },
-  components: {
-    SubMenu
   },
   data () {
     return {

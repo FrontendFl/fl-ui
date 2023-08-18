@@ -22,7 +22,6 @@
 
 <script>
 export default {
-  name: 'sub-menu',
   inject: ['refresh'],
   props: {
     subMenuList: {

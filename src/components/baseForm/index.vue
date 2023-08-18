@@ -71,25 +71,12 @@
 </template>
 
 <script>
-import baseCheckbox from '../base/baseCheckbox'
-import baseInput from '../base/baseInput'
-import baseRadio from '../base/baseRadio'
-import baseSelect from '../base/baseSelect'
-import baseTime from '../base/baseTime'
 import axios from 'axios'
 import { validatenull } from '@/utils'
 import { get } from 'lodash'
 import { REQUEST_ALL_DATA } from '@/utils/constant/requestConst'
 
 export default {
-  components: {
-    baseCheckbox,
-    baseInput,
-    baseRadio,
-    baseSelect,
-    baseTime
-  },
-
   props: {
     option: {
       type: Object,
