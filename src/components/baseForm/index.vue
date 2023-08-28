@@ -158,6 +158,7 @@ export default {
     initRequest() {
       if (!Array.isArray(this.formColumn)) return
       const urls = this.formColumn?.filter((item) => item.url)
+      const baseUrl = 'https://getman.cn/mock/fl/'
       urls.forEach(async (item) => {
         const params = {
           ...REQUEST_ALL_DATA,
@@ -165,7 +166,10 @@ export default {
         }
 
         let { data: detail } =
-          (await axios[item?.requestMethod || 'post'](item.url, params)) || []
+          (await axios[item?.requestMethod || 'post'](
+            baseUrl + item.url,
+            params
+          )) || []
 
         let finalResult
         if (item.handleDic) finalResult = item.handleDic(detail, item)

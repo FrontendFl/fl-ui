@@ -180,7 +180,7 @@ export const option = {
       type: 'baseSelect',
       placeholder: 'test',
       span: 8,
-      url: 'https://getman.cn/mock/fl/baseForm/test',
+      url: 'baseForm/test',
       requestMethod: 'get',
       requestLabel: 'name',
       requestValue: 'id',
