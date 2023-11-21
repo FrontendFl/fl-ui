@@ -1,4 +1,6 @@
 export const option = {
+  labelPosition: 'right',
+  labelWidth: '120px',
   column: [
     {
       label: '姓名',
@@ -174,6 +176,14 @@ export const option = {
     },
 
     {
+      labelSlotName: 'testLabel',
+      prop: 'test',
+      type: 'baseInput',
+      placeholder: 'test',
+      span: 8
+    },
+
+    {
       // 测试接口的调用并展示数据
       label: '测试',
       prop: 'test',
@@ -185,6 +195,7 @@ export const option = {
       requestLabel: 'name',
       requestValue: 'id',
       handleDic: (data, item) => {
+        if(!data) return
         return data.map((result) => ({
           label: `test—${result[item.requestLabel]}`,
           value: result[item.requestValue]

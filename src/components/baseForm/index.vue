@@ -6,6 +6,7 @@
     v-on="$listeners"
     :model="form"
     :rules="formRules"
+    :label-position="option.labelPosition"
     :size="get(option, 'formSize', defaultFormSize)"
     @submit.native.prevent
   >
@@ -25,16 +26,27 @@
           :label="`${column.label}:`"
           :prop="column.prop"
           :label-width="
-            get(column, 'labelWidth', column.labelWidth || defaultLabelWidth)
+            get(
+              column,
+              'labelWidth',
+              column.labelWidth || option.labelWidth || defaultLabelWidth
+            )
           "
           :style="{
             height: get(
               column,
               'labelHeight',
-              column.labelHeight || defaultLabelHeight
+              column.labelHeight || option.labelHeight || defaultLabelHeight
             )
           }"
         >
+          <template #label>
+            <slot
+              v-if="column.labelSlotName"
+              :name="column.labelSlotName"
+              :column="column"
+            ></slot>
+          </template>
                    
           <slot
             v-if="column.slot"
@@ -159,28 +171,32 @@ export default {
       if (!Array.isArray(this.formColumn)) return
       const urls = this.formColumn?.filter((item) => item.url)
       const baseUrl = 'https://getman.cn/mock/fl/'
-      urls.forEach(async (item) => {
-        const params = {
-          ...REQUEST_ALL_DATA,
-          ...item.requestParams
-        }
+      try {
+        urls.forEach(async (item) => {
+          const params = {
+            ...REQUEST_ALL_DATA,
+            ...item.requestParams
+          }
 
-        let { data: detail } =
-          (await axios[item?.requestMethod || 'post'](
-            baseUrl + item.url,
-            params
-          )) || []
+          let { data: detail } =
+            (await axios[item?.requestMethod || 'post'](
+              baseUrl + item.url,
+              params
+            )) || []
 
-        let finalResult
-        if (item.handleDic) finalResult = item.handleDic(detail, item)
-        else
-          finalResult = detail.map((result) => ({
-            label: result[item.requestLabel],
-            value: result[item.requestValue]
-          }))
+          let finalResult
+          if (item.handleDic) finalResult = item.handleDic(detail, item)
+          else
+            finalResult = detail.map((result) => ({
+              label: result[item.requestLabel],
+              value: result[item.requestValue]
+            }))
 
-        this.$set(item, 'dic', finalResult)
-      })
+          this.$set(item, 'dic', finalResult)
+        })
+      } catch (error) {
+        console.log({ error })
+      }
     },
 
     initRules() {
